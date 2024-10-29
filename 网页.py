@@ -28,8 +28,12 @@ st.title("职业紧张预测")
 # 年龄输入
 age = st.number_input("年龄：", min_value=1, max_value=120, value=50)
 
+
+# 工龄输入
+service_years = st.number_input("工龄：", min_value=1, max_value=120, value=50)
+
 # 近一个月平均每天加班时间输入，对应B3
-overtime_hours = st.number_input("近一个月平均每天加班时间：", min_value=1, max_value=120, value=50)
+overtime_hours = st.number_input("近一个月平均每天加班时间：", min_value=1, max_value=120, value=50）
 
 # A2（性别）选择
 A2_options = {1: '男性', 2: '女性'}
@@ -90,6 +94,12 @@ working_hours_group = st.selectbox(
     format_func=lambda x: working_hours_group_options[x]
 )
 
+# exerciseG1默认值设为0
+exerciseG1_default = 0
+
+# exerciseG1默认值设为0
+exerciseG1_default = 0
+
 # exercise（是否有进行持续至少30分钟的中等强度锻炼）选择
 exercise_options = {1: '无', 2: '偶尔，1 - 3次/月', 3: '有，1~3次/周', 4: '经常，4~6次/周', 5: '每天'}
 exercise = st.selectbox(
@@ -111,7 +121,7 @@ work_load = st.slider("疲劳积蓄程度（1 - 5）：", min_value=1, max_value
 depression_level = st.slider("抑郁症状级别（1 - 5）：", min_value=1, max_value=5, value=3)
 
 # 定义默认特征值为0的特征列表
-missing_features = ['A6', 'service_years', 'onboarding_time']
+missing_features = ['A6', 'exerciseG1', 'exerciseG2'，'onboarding_time']
 default_feature_values = {feature: 0 for feature in missing_features}
 
 def predict():
@@ -130,10 +140,10 @@ def predict():
             'B4': B4,
             'B5': B5,
             'smokeG': smoke,
-            'exerciseG1': 0,  
-            'exerciseG2': 0,  
+            'exerciseG1': exerciseG1_default, 
+            'exerciseG2': exerciseG2_default, 
             'exerciseG3': exercise_options[exercise],
-            '工龄': default_feature_values['service_years'],
+            '工龄':  service_years,
             '上岗时间': 0,
             '工时分组': working_hours_group,
             '生活满意度': life_satisfaction,
